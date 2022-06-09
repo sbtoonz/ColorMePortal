@@ -24,6 +24,10 @@ namespace ColorMePortal
         private static ConfigEntry<Color> PointLightColor = null!;
         private static ConfigEntry<Color> StartColor1 = null!;
         private static ConfigEntry<Color> StartColor2 = null!;
+        private static ConfigEntry<Color> GradientColor1 = null!;
+        private static ConfigEntry<Color> GradientColor2 = null!;
+        private static ConfigEntry<float> GradientAlpha1 = null!;
+        private static ConfigEntry<float> GradientAlpha2 = null!;
         //private static ConfigEntry<LogLevel> debuglevel = null!;
 
         private static Harmony harmony = null!;
@@ -54,6 +58,10 @@ namespace ColorMePortal
             PointLightColor = config("General", "Point Light Color", new Color(0, 0, 0), "Point Light color");
             StartColor1 = config("General", "Start Particle Life Color 1", new Color(0, 0, 0), "Particle start Color 1");
             StartColor2 = config("General", "Start Particle Life Color 2", new Color(0, 0, 0), "Particle start Color 2");
+            GradientColor1 = config("General", "Gradient Color 1", new Color(0, 0, 0), "Gradient Color 1");
+            GradientColor2 = config("General", "Gradient Color 2", new Color(0, 0, 0), "Gradient Color 2");
+            GradientAlpha1 = config("General", "Gradient Alpha 1", 1f, "Gradient Alpha 1");
+            GradientAlpha2 = config("General", "Gradient Alpha 2", 1f, "Gradient Alpha 2");
             //debuglevel = config("General", "Debug Level", LogLevel.All, "Set the debug level");
         }
         
@@ -142,12 +150,12 @@ namespace ColorMePortal
             Gradient temp = new Gradient();
             temp.SetKeys( new[]
             {
-                new GradientColorKey(Color.blue, 0.0f), 
-                new GradientColorKey(Color.red, 1.0f)
+                new GradientColorKey(GradientColor1.Value, 0.0f), 
+                new GradientColorKey(GradientColor2.Value, 1.0f)
             }, new[]
             {
-                new GradientAlphaKey(1.0f, 0.0f), 
-                new GradientAlphaKey(0.0f, 1.0f)
+                new GradientAlphaKey(GradientAlpha1.Value, 0.0f), 
+                new GradientAlphaKey(0.0f, GradientAlpha2.Value)
             } );
             
             AlterPortalColor(portal, temp, PointLightColor.Value, StartColor1.Value, StartColor2.Value);
@@ -171,12 +179,12 @@ namespace ColorMePortal
                     Gradient temp = new Gradient();
                     temp.SetKeys( new[]
                     {
-                        new GradientColorKey(Color.blue, 0.0f), 
-                        new GradientColorKey(Color.red, 1.0f)
+                        new GradientColorKey(GradientColor1.Value, 0.0f), 
+                        new GradientColorKey(GradientColor2.Value, 1.0f)
                     }, new[]
                     {
-                        new GradientAlphaKey(1.0f, 0.0f), 
-                        new GradientAlphaKey(0.0f, 1.0f)
+                        new GradientAlphaKey(GradientAlpha1.Value, 0.0f), 
+                        new GradientAlphaKey(0.0f, GradientAlpha2.Value)
                     } );
             
                     AlterPortalColor(__instance.gameObject, temp, PointLightColor.Value, StartColor1.Value, StartColor2.Value);
