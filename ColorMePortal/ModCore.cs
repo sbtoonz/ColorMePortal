@@ -21,7 +21,6 @@ namespace ColorMePortal
         private static string ConfigFileFullPath = Paths.ConfigPath + Path.DirectorySeparatorChar + ConfigFileName;
         private static ManualLogSource PortalLogger = new ManualLogSource(ModName);
         private static readonly int Color1 = Shader.PropertyToID("_Color");
-        //private static ConfigEntry<Gradient> ParticleGradient = null!;
         private static ConfigEntry<Color> PointLightColor = null!;
         private static ConfigEntry<Color> StartColor1 = null!;
         private static ConfigEntry<Color> StartColor2 = null!;
