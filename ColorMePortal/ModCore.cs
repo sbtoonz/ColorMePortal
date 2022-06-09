@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Configuration;
@@ -164,6 +165,15 @@ namespace ColorMePortal
             PortalLogger.Log(LogLevel.Debug,"Removing Old Portal");
             ZNetScene.instance.m_prefabs.Add(portal);
             PortalLogger.Log(LogLevel.Debug, "Inserting Colored Portal");
+            List<ZDO> portalList = new();
+            ZDOMan.instance.GetAllZDOsWithPrefab("portal_wood",portalList);
+            foreach (var VARIABLE in portalList)
+            {
+                VARIABLE.SetPrefab(portal.name.GetStableHashCode());
+                VARIABLE.m_prefab = ZNetScene.instance.GetPrefab(portal.name).name.GetStableHashCode();
+                VARIABLE.m_tempHaveRevision = true;
+            }
+            PortalLogger.Log(LogLevel.Debug, "Done Setting ZDOs");
 
         }
 
